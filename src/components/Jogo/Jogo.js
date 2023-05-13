@@ -7,11 +7,32 @@ import forca4 from './assets/forca4.png'
 import forca5 from './assets/forca5.png'
 import forca6 from './assets/forca6.png'
 
-export default function Jogo() {
+//randomize words and pass as parameter
+function comparer() { 
+    return Math.random() - 0.5; 
+  }
+  
+
+
+export default function Jogo({words, errorState, setErrorState, wordState, setWordState, setKeyboardState}) {
+    function chooseWord(words) {
+        const wordSorted = words.sort(comparer)[0];
+        const wordSplit = wordSorted.split('');
+        const wordReplaced = [];
+        wordSplit.forEach((letter, index) => wordReplaced[index] = "_ ");
+        
+        setKeyboardState(false);
+        setWordState(wordReplaced);
+        setErrorState(0);
+    }
+
     return (
         <span className='game'>
-            <img src={forca0} alt='forca0' />
-            <button>Escolher palavra</button>
+            <img src={forca0} alt='forcaImg' />
+            <div className="container-right">
+                <button onClick={() => chooseWord(words)}>Escolher palavra</button>
+                <h1>{wordState}</h1>
+            </div>
         </span>
     )
 }

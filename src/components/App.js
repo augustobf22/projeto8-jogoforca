@@ -3,15 +3,21 @@ import Letras from './Letras/Letras'
 import './reset.css';
 import './style.css';
 import palavras from '../palavras';
+import React from 'react'
 
-//randomize words and pass as parameter
+
 
 export default function App() {
+  //states: errorState, wordState, keyboardState
+  const [errorState, setErrorState] = React.useState(0);
+  const [wordState, setWordState] = React.useState('');
+  const [keyboardState, setKeyboardState] = React.useState(true);
+
   return (
-    <>
-      <Jogo />
-      <Letras />
-    </>
+    <div className="container">
+      <Jogo words={palavras} errorState={errorState} setErrorState ={setErrorState} wordState = {wordState} setWordState = {setWordState} setKeyboardState={setKeyboardState}/>
+      <Letras keyboardState={keyboardState} />
+    </div>
   );
 }
 

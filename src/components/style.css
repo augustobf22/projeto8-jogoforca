@@ -12,3 +12,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.container {
+  width: 1025px;
+  height: 850px;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
