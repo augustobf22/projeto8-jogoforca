@@ -13,7 +13,7 @@ function comparer() {
     return Math.random() - 0.5; 
 }
 
-export default function Jogo({words, errorState, setErrorState, wordState, setWordState, setKeyboardState, wordSplit, setWordSplit}) {
+export default function Jogo({words, errorState, setErrorState, wordState, setWordState, setKeyboardState, wordSplit, setWordSplit, count, setCount, setSelectedLetters, colorState, setColorState}) {
     let imgRef = '';
     switch(errorState){    
         case 0: imgRef = forca0; break;
@@ -21,28 +21,31 @@ export default function Jogo({words, errorState, setErrorState, wordState, setWo
         case 2: imgRef = forca2; break;
         case 3: imgRef = forca3; break;
         case 4: imgRef = forca4; break;
-        case 5: imgRef = forca5; break;
-        case 6: imgRef = forca6;
+        case 5: imgRef = forca5; break; 
+        default: imgRef = forca6;
     }
 
     function chooseWord(words) {
         const wordSorted = words.sort(comparer)[0];
         const wSplit = wordSorted.split('');
         const wordReplaced = [];
-        wSplit.forEach((letter, index) => wordReplaced[index] = "_ ");
+        wSplit.forEach((letter, index) => wordReplaced[index] = " _");
         
         setKeyboardState(false);
         setWordSplit(wSplit);
         setWordState(wordReplaced);
         setErrorState(0);
+        setCount(0);
+        setSelectedLetters([]);
+        setColorState('black');
     }
 
     return (
         <span className='game'>
-            <img src={imgRef} alt='forcaImg' />
+            <img src={imgRef} alt='forcaImg' data-test="game-image" />
             <div className="container-right">
-                <button onClick={() => chooseWord(words)}>Escolher palavra</button>
-                <h1>{wordState}</h1>
+                <button onClick={() => chooseWord(words)} data-test="choose-word">Escolher palavra</button>
+                <h1 className={colorState} data-test="word" >{wordState}</h1>
             </div>
         </span>
     )
